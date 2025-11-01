@@ -1,22 +1,21 @@
 import React from "react";
+import { Filter } from "lucide-react";
+import "../styles/styles.css";
 
 const Filters = () => (
-  <div className="filter-group">
-    <select>
-      <option>All Scores</option>
-      <option>0 - 25</option>
-      <option>26 - 50</option>
-      <option>51 - 75</option>
-      <option>76 - 100</option>
-    </select>
-
-    <select>
-      <option>All AddedBy</option>
-      <option>user1</option>
-      <option>user2</option>
-      <option>user3</option>
-    </select>
+  <div className="filter-wrapper">
+    <div className="filter-icon-container">
+      <Filter size={16} color="#666" className="filter-icon" />
+      <select className="filter-select">
+        <option>Add Filters</option>
+        <option>Filter 1</option>
+        <option>Filter 2</option>
+        <option>Filter 3</option>
+        <option>Filter 4</option>
+      </select>
+    </div>
   </div>
 );
 
 export default Filters;
+
