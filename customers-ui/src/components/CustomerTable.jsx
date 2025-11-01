@@ -1,4 +1,6 @@
 import React from "react";
+import "../styles/styles.css";
+import MyProfile from "../images/Myprofile.jpeg"; // ✅ Import your image
 
 const CustomerTable = ({
   data,
@@ -15,47 +17,68 @@ const CustomerTable = ({
       <table className="customers-table">
         <thead>
           <tr>
-            {["id", "name", "email", "phone", "score", "addedBy"].map((key) => (
-              <th
-                key={key}
-                onClick={() => handleSort(key)}
-                className="sticky"
-                style={{ cursor: "pointer" }}
-              >
-                {key.toUpperCase()}{" "}
-                {sortKey === key ? (sortDir === 1 ? "▲" : "▼") : ""}
-              </th>
-            ))}
+            <th>
+              <input type="checkbox" />
+            </th>
+            <th onClick={() => handleSort("name")} style={{ cursor: "pointer" }}>
+              Customer {sortKey === "name" ? (sortDir === 1 ? "▲" : "▼") : ""}
+            </th>
+            <th onClick={() => handleSort("score")} style={{ cursor: "pointer" }}>
+              Score {sortKey === "score" ? (sortDir === 1 ? "▲" : "▼") : ""}
+            </th>
+            <th onClick={() => handleSort("email")} style={{ cursor: "pointer" }}>
+              Email {sortKey === "email" ? (sortDir === 1 ? "▲" : "▼") : ""}
+            </th>
+            <th style={{ cursor: "default" }}>Last Message Sent At</th>
+            <th onClick={() => handleSort("addedBy")} style={{ cursor: "pointer" }}>
+              Added By {sortKey === "addedBy" ? (sortDir === 1 ? "▲" : "▼") : ""}
+            </th>
           </tr>
         </thead>
+
         <tbody>
+          {/* Loading / Empty states */}
           {data === null && (
             <tr className="loading-row">
-              <td colSpan="6">Generating 1M records... please wait</td>
+              <td colSpan="6">Generating records... please wait</td>
             </tr>
           )}
-
           {data && visibleRows.length === 0 && (
             <tr>
               <td colSpan="6">No results</td>
             </tr>
           )}
 
+          {/* Data rows */}
           {visibleRows.map((row) => (
             <tr key={row.id} className="row">
-              <td>{row.id}</td>
-              <td className="name-cell">
-                <div className="avatar">{row.avatar}</div>
-                <div>
-                  <div className="name">{row.name}</div>
-                  <div className="sub">
-                    Last: {new Date(row.lastMessageAt).toLocaleString()}
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td>
+                <div className="name-cell">
+                  <div className="avatar">
+                    {/* ✅ Your own image */}
+                    <img
+                      src={MyProfile}
+                      alt="My Profile"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                  <div className="customer-info">
+                    <span className="name">{row.name}</span>
+                    <span className="sub">{row.phone}</span>
                   </div>
                 </div>
               </td>
-              <td>{row.email}</td>
-              <td>{row.phone}</td>
               <td>{row.score}</td>
+              <td>{row.email}</td>
+              <td>{new Date(row.lastMessageAt).toLocaleString()}</td>
               <td>{row.addedBy}</td>
             </tr>
           ))}
@@ -71,3 +94,5 @@ const CustomerTable = ({
 };
 
 export default CustomerTable;
+
+
